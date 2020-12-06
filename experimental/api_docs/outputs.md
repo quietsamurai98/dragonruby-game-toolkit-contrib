@@ -24,7 +24,7 @@ def tick args
   if args.state.tick_count.zero?
     args.state.spinning_dragon = {x: 590, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", angle: 0}
     
-    # You can shovel sprite primitives into #sprites one at a time...
+    # You can shovel sprite primitives into #static_sprites one at a time...
     args.outputs.static_sprites << args.state.spinning_dragon
     
     # ...or you can shovel them in bulk, which is preferred.
