@@ -21,7 +21,7 @@ A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains [sprites](#sprite-primi
 Example usage:
 ```rb
 def tick args
-  if args.state.tick_count.zero?
+  if args.state.tick_count.zero? # Only run on the first tick
     args.state.spinning_dragon = {x: 590, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", angle: 0}
     
     # You can shovel sprite primitives into #static_sprites one at a time...
@@ -33,6 +33,7 @@ def tick args
       [390, 320, 100, 80, "sprites/dragon-0.png"]
     ]
   end
+  # Since #static_sprites persists between ticks, we can just update the sprite's angle property to make the dragon spin.
   args.state.spinning_dragon.angle = args.state.tick_count
 end
 ```
