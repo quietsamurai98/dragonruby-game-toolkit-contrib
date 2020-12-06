@@ -5,12 +5,14 @@ A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains [sprites](#sprite-primi
 Example usage:
 ```rb
 def tick args
-  args.outputs.sprites << [390, 320, 100, 80, "sprites/dragon-0.png"]
-  args.outputs.sprites << {x: 790, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", flip_horizontally: true}
-  sprite_object = DuckTypedSprite.new
-  sprite_object.x, sprite_object.y, sprite_object.w, sprite_object.h, sprite_object.path = 590, 320, 100, 80, "sprites/dragon-0.png"
-  sprite_object.angle = args.state.tick_count
-  args.outputs.sprites << sprite_object
+  # You can shovel sprite primitives into #sprites one at a time...
+  args.outputs.sprites << [590, 320, 100, 80, "sprites/dragon-0.png", args.state.tick_count]
+  
+  # ...or you can shovel them in bulk, which is preferred.
+  args.outputs.sprites << [
+    {x: 790, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", flip_horizontally: true},
+    [390, 320, 100, 80, "sprites/dragon-0.png"]
+  ]
 end
 ```
 ### #static_sprites
@@ -20,19 +22,18 @@ Example usage:
 ```rb
 def tick args
   if args.state.tick_count.zero?
-    sprite_object = {x: 590, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", angle: 0}
+    args.state.spinning_dragon = {x: 590, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", angle: 0}
     
-    # You can (and should) shovel multiple sprites into #sprites and #static_sprites instead of shoveling them in one at a time.
+    # You can shovel sprite primitives into #sprites one at a time...
+    args.outputs.static_sprites << args.state.spinning_dragon
+    
+    # ...or you can shovel them in bulk, which is preferred.
     args.outputs.static_sprites << [
-      [390, 320, 100, 80, "sprites/dragon-0.png"],
       {x: 790, y: 320, w: 100, h: 80, path: "sprites/dragon-0.png", flip_horizontally: true},
-      sprite_object
+      [390, 320, 100, 80, "sprites/dragon-0.png"]
     ]
-    
-    args.state.sprite_object = sprite_object
-    args.outputs.static_sprites << sprite_object
   end
-  args.state.sprite_object.angle = args.state.tick_count
+  args.state.spinning_dragon.angle = args.state.tick_count
 end
 ```
 
