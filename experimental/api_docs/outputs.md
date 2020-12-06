@@ -1,6 +1,6 @@
 ## GTK::Outputs
 ### #sprites
-A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains [sprites](#sprites) to render at the end of the current tick.  
+A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains [sprites](#sprite-primitives) to render at the end of the current tick.  
 `#sprites` is emptied between ticks, so sprites pushed into it only get rendered on the tick they are added.  
 Example usage:
 ```rb
@@ -14,7 +14,7 @@ def tick args
 end
 ```
 ### #static_sprites
-A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains sprites to render at the end of the current tick.  
+A [GTK::FlatArray](#TODO_LINK_TO_API_DOCS) that contains [sprites](#sprite-primitives) to render at the end of the current tick.  
 `#static_sprites` *is **not*** emptied between ticks, so a sprite added on tick 0 will continue to render on each tick until it is removed.  
 Example usage:
 ```rb
@@ -36,7 +36,7 @@ def tick args
 end
 ```
 
-## Sprites
+## Sprite Primitives
 ### Properties
  * `x ||= 0`: The x position of the sprite's bottom left corner, measured in pixels from the left side of the screen.
  * `y ||= 0`: The y position of the sprite's bottom left corner, measured in pixels from the bottom of the screen.
